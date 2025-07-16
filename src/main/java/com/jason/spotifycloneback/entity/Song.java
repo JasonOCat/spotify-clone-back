@@ -3,8 +3,6 @@ package com.jason.spotifycloneback.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.GenerationTime;
-import org.hibernate.annotations.UuidGenerator;
 
 import java.io.Serializable;
 import java.util.UUID;

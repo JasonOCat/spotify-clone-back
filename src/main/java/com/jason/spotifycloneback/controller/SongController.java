@@ -28,8 +28,6 @@ public class SongController {
 
     private final Validator validator;
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
-
     @GetMapping("/songs")
     public ResponseEntity<List<SongDTO>> getAll() {
         return ResponseEntity.ok(songService.getAll());

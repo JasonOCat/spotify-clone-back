@@ -10,13 +10,13 @@ CREATE TABLE IF NOT EXISTS song (
     public_id UUID NOT NULL UNIQUE,
     title VARCHAR(256) NOT NULL,
     artist VARCHAR(256) NOT NULL,
-    cover BYTEA NOT NULL,
+    cover OID NOT NULL,
     cover_content_type VARCHAR(255) NOT NULL
     );
 
 -- Table audio_file
 CREATE TABLE IF NOT EXISTS audio_file (
       song_id BIGINT PRIMARY KEY NOT NULL,
-      file BYTEA NOT NULL,
+      file OID NOT NULL,
       file_content_type VARCHAR(255) NOT NULL
 );

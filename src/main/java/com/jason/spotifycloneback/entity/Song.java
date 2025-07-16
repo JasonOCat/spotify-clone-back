@@ -3,6 +3,7 @@ package com.jason.spotifycloneback.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.GenerationTime;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.io.Serializable;
@@ -14,6 +15,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Song implements Serializable {
 
     @Id
@@ -22,7 +24,6 @@ public class Song implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @UuidGenerator
     @Column(name = "public_id", nullable = false)
     private UUID publicId;
 

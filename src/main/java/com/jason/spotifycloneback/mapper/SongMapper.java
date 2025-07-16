@@ -12,7 +12,7 @@ public class SongMapper {
 
     public SongDTO songToSongDTO(Song song) {
         return SongDTO.builder()
-                .title( song.getTitle())
+                .title(song.getTitle())
                 .artist(song.getArtist())
                 .cover(song.getCover())
                 .coverContentType(song.getCoverContentType())

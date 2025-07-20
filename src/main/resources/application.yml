@@ -35,3 +35,10 @@ spring:
     default-schema: spotify_clone
 server:
   port: 8080
+
+
+okta:
+  oauth2:
+    issuer: https://jasoncat.eu.auth0.com/
+    client-id: ${auth0_client_id}
+    client-secret: ${auth0_client_secret}

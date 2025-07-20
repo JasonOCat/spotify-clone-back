@@ -1,5 +1,6 @@
 package com.jason.spotifycloneback.service;
 
+import com.jason.spotifycloneback.dto.AudioFileDTO;
 import com.jason.spotifycloneback.dto.CreateSongDTO;
 import com.jason.spotifycloneback.dto.SongDTO;
 import com.jason.spotifycloneback.entity.AudioFile;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -48,5 +51,10 @@ public class SongService {
         audioFileRepository.save(audioFile);
 
         return songMapper.songToSongDTO(songSaved);
+    }
+
+    public Optional<AudioFileDTO> getOneByPublicId(UUID publicId) {
+        Optional<AudioFile> audioFile = audioFileRepository.findOneBySongPublicId(publicId);
+        return audioFile.map(audioFileMapper::audioFileToAudioFileDTO);
     }
 }

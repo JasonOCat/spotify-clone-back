@@ -1,5 +1,6 @@
 package com.jason.spotifycloneback.controller;
 
+import com.jason.spotifycloneback.dto.AudioFileDTO;
 import com.jason.spotifycloneback.dto.CreateSongDTO;
 import com.jason.spotifycloneback.dto.SongDTO;
 import com.jason.spotifycloneback.service.SongService;
@@ -15,7 +16,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
@@ -27,6 +30,7 @@ public class SongController {
 
     private final Validator validator;
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/songs")
     public ResponseEntity<List<SongDTO>> getAll() {
         return ResponseEntity.ok(songService.getAll());
@@ -59,5 +63,14 @@ public class SongController {
         } else {
             return ResponseEntity.ok(songService.create(createSongDTO));
         }
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/songs/get-content")
+    public ResponseEntity<AudioFileDTO> getOneByPublicId(@RequestParam UUID publicId) {
+        Optional<AudioFileDTO> songContentByPublicId = songService.getOneByPublicId(publicId);
+        return songContentByPublicId.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity
+                        .of(ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, "UUID Unknown")).build());
     }
 }

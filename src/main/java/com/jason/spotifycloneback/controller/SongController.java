@@ -30,7 +30,6 @@ public class SongController {
 
     private final Validator validator;
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/songs")
     public ResponseEntity<List<SongDTO>> getAll() {
         return ResponseEntity.ok(songService.getAll());
@@ -65,7 +64,6 @@ public class SongController {
         }
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/songs/get-content")
     public ResponseEntity<AudioFileDTO> getOneByPublicId(@RequestParam UUID publicId) {
         Optional<AudioFileDTO> songContentByPublicId = songService.getOneByPublicId(publicId);

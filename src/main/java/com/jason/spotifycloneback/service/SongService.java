@@ -2,7 +2,7 @@ package com.jason.spotifycloneback.service;
 
 import com.jason.spotifycloneback.dto.AudioFileDTO;
 import com.jason.spotifycloneback.dto.CreateSongDTO;
-import com.jason.spotifycloneback.dto.SongDTO;
+import com.jason.spotifycloneback.dto.ReadSongDTO;
 import com.jason.spotifycloneback.entity.AudioFile;
 import com.jason.spotifycloneback.entity.Song;
 import com.jason.spotifycloneback.mapper.AudioFileMapper;
@@ -31,14 +31,14 @@ public class SongService {
     private final AudioFileMapper audioFileMapper;
 
     @Transactional(readOnly = true)
-    public List<SongDTO> getAll() {
+    public List<ReadSongDTO> getAll() {
         return songRepository.findAll()
                 .stream()
                 .map(songMapper::songToSongDTO)
                 .toList();
     }
 
-    public SongDTO create(CreateSongDTO createSongDTO) {
+    public ReadSongDTO create(CreateSongDTO createSongDTO) {
         // Create song
         Song song = songMapper.createSongDTOToSong(createSongDTO);
         Song songSaved = songRepository.save(song);
@@ -56,5 +56,11 @@ public class SongService {
     public Optional<AudioFileDTO> getOneByPublicId(UUID publicId) {
         Optional<AudioFile> audioFile = audioFileRepository.findOneBySongPublicId(publicId);
         return audioFile.map(audioFileMapper::audioFileToAudioFileDTO);
+    }
+
+    public List<ReadSongDTO> search(String searchTerm) {
+        return songRepository.findByTitleOrArtistContaining(searchTerm).stream()
+                .map(songMapper::songToReadSongDTO)
+                .toList();
     }
 }

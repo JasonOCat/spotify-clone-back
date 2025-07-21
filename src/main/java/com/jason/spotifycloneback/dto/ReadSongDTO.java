@@ -7,7 +7,7 @@ import lombok.Builder;
 import java.util.UUID;
 
 @Builder
-public record SongDTO(
+public record ReadSongDTO(
         @NotBlank String title,
         @NotBlank String artist,
         @NotNull byte[] cover,

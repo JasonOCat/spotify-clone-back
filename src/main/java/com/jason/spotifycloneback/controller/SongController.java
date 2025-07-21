@@ -2,7 +2,7 @@ package com.jason.spotifycloneback.controller;
 
 import com.jason.spotifycloneback.dto.AudioFileDTO;
 import com.jason.spotifycloneback.dto.CreateSongDTO;
-import com.jason.spotifycloneback.dto.SongDTO;
+import com.jason.spotifycloneback.dto.ReadSongDTO;
 import com.jason.spotifycloneback.service.SongService;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
@@ -31,12 +31,12 @@ public class SongController {
     private final Validator validator;
 
     @GetMapping("/songs")
-    public ResponseEntity<List<SongDTO>> getAll() {
+    public ResponseEntity<List<ReadSongDTO>> getAll() {
         return ResponseEntity.ok(songService.getAll());
     }
 
     @PostMapping(value = "/songs", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<SongDTO> add(
+    public ResponseEntity<ReadSongDTO> add(
             @RequestPart(name = "title") String title,
             @RequestPart(name = "artist") String artist,
             @RequestPart(name = "cover") MultipartFile cover,
@@ -70,5 +70,10 @@ public class SongController {
         return songContentByPublicId.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity
                         .of(ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, "UUID Unknown")).build());
+    }
+
+    @GetMapping("/songs/search")
+    public ResponseEntity<List<ReadSongDTO>> search(@RequestParam String term) {
+        return ResponseEntity.ok(songService.search(term));
     }
 }

@@ -92,7 +92,7 @@ public class SongService {
 
         ReadUserDTO userWhoLikedSong = userService.getByEmail(email).orElseThrow();
 
-        if (favoriteSongDTO.favorite()) {
+        if (favoriteSongDTO.isFavorite()) {
             Favorite favorite = new Favorite();
             favorite.setSongPublicId(songToLike.getPublicId());
             favorite.setUserEmail(userWhoLikedSong.email());

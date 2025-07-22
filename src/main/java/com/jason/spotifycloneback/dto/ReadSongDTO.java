@@ -12,6 +12,18 @@ public record ReadSongDTO(
         @NotBlank String artist,
         @NotNull byte[] cover,
         @NotBlank String coverContentType,
+        boolean isFavorite,
         @NotNull UUID publicId
 ) {
+
+    public ReadSongDTO withFavorite(boolean favorite) {
+        return ReadSongDTO.builder()
+                .title(title)
+                .artist(artist)
+                .cover(cover)
+                .coverContentType(coverContentType)
+                .isFavorite(favorite)
+                .publicId(publicId)
+                .build();
+    }
 }
